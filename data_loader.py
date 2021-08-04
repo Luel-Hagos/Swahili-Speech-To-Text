@@ -41,24 +41,25 @@ class Dataloader(Dataset):
         test: bool = False
     ) -> None:
         self._walker = []
+        #self.length = []
         self.test = test
         self._parse_filesystem(root, url, folder_in_archive, download)
 
-        n_fft = 1024
-        hop_length = 512
-        n_mels = 128
         sample_rate = 22050
+        n_fft = 1024
+        win_length = 512
+        hop_length = 512
+        n_mels = 128 
 
         self.mel_spectrogram = T.MelSpectrogram(
-            sample_rate=sample_rate,
-            n_fft=n_fft,
-            hop_length=hop_length,
-            #center = True,
-            #pad_mode = "reflect",
-            power=2.0,
-            #norm= 'slaney',
-            #onesided = True,
-            n_mels=n_mels,
+                sample_rate=sample_rate,
+                n_fft=n_fft,
+                win_length=win_length,
+                hop_length=hop_length,
+                f_min = 0,
+                f_max = 22050,
+                power = 1,
+                n_mels=n_mels,
         )
 
         #self.Labels = Path(url+'/'+folder_in_archive).glob('*.wav').split['/'][-1].split('-')[-2]
